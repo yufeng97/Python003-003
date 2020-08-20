@@ -80,4 +80,10 @@ def main():
 
 
 if __name__ == '__main__':
+    data = fetch("https://maoyan.com/films/456826")
+    from lxml import etree
+    selector = etree.HTML(data)
+    movie_brief = selector.xpath('//div[@class="movie-brief-container"]')
+    categories = movie_brief.xpath('//a/text()')
+    print(categories)
     main()
