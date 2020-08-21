@@ -74,6 +74,14 @@ for tags in bs_info.find_all('div', attrs={'class': 'hd'}):
         # 获取电影名字
 ```
 
+## Xpath
+
+> XPath 是一门在 XML 文档中查找信息的语言。XPath 可用来在 XML 文档中对元素和属性进行遍历。
+
+
+
+
+
 ## Scrapy
 
 #### 框架架构
