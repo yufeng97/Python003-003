@@ -1,6 +1,7 @@
-学习笔记
+week01学习笔记
+
 ## Python环境配置
-### 替换pip源地址
+#### 替换pip源地址
 
 ##### 常用 pip 源地址
 
@@ -9,22 +10,22 @@
 * 中科大： https://pypi.mirrors.ustc.edu.cn/simple/
 * 阿里云： https://mirrors.aliyun.com/pypi/simple/ 
 
-##### 临时替换
+#### 临时替换
 
 ```bash
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
 ```
 
-##### 永久替换（先升级 pip：pip install pip -U ）
+#### 永久替换（先升级 pip：pip install pip -U ）
 
 ```bash
 pip install pip -U
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-### 配置venv虚拟环境
+#### 配置venv虚拟环境
 
-#### Windows环境
+##### Windows环境
 
 ```bash
 # create environment
@@ -36,7 +37,7 @@ project-venv\Scripts\activate
 deactivate
 ```
 
-#### Unix/MacOS环境
+##### Unix/MacOS环境
 
 ```bash
 python -m venv project-venv
@@ -45,7 +46,7 @@ source project-venv/bin/activate
 
 ## Beautiful Soup
 
-### 简单例子
+#### 简单例子
 
 ```python
 # 使用BeautifulSoup解析网页
@@ -114,9 +115,15 @@ cd spiders
 scrapy genspider movies douban.com
 ```
 
+#### 启动
+
+```bash
+scrapy crawl douban
+```
+
 #### Item Pipeline
 
-spider `parse`函数每yield一个item就会调用一次`process_item`函数，想要持续地将数据写入一个文件中，就需要用到`open_spider`，`close_spider`函数，在spider启动和关闭时，分别创建和关闭文件。
+spider的 `parse`函数每yield一个**item**就会调用一次`process_item`函数，想要持续地将数据写入一个文件中，就需要用到`open_spider`，`close_spider`函数，在spider启动和关闭时，分别创建和关闭文件。
 
 ```python
 import json
