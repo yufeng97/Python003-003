@@ -1,7 +1,5 @@
 学习笔记
 
-
-
 ### Fake Useragent
 
 #### 安装
@@ -27,9 +25,9 @@ print(f'随机浏览器：{ua.random}')
 
 比较基本的头部信息：User Agent，Cookies，Referer
 
-httpbin
+#### httpbin
 
-httpbin是一个专门进行HTTP的学习和调试的网站，它会把请求的头信息在网页上展示出来
+https://www.httpbin.org/是一个专门进行HTTP的学习和调试的网站，它会把请求的头信息在网页上展示出来
 
 ### MySQL
 
@@ -50,7 +48,44 @@ net start mysql
 mysql -u root -p
 ```
 
+#### 安装pymysql
 
+```bash
+pip install pymysql
+```
+
+#### 例子
+
+```python
+import pymysql.cursors
+
+# Connect to the database
+connection = pymysql.connect(host='localhost',
+                             user='user',
+                             password='passwd',
+                             db='db',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+
+try:
+    with connection.cursor() as cursor:
+        # Create a new record
+        sql = "INSERT INTO `users` (`email`, `password`) VALUES (%s, %s)"
+        cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
+
+    # connection is not autocommit by default. So you must commit to save
+    # your changes.
+    connection.commit()
+
+    with connection.cursor() as cursor:
+        # Read a single record
+        sql = "SELECT `id`, `password` FROM `users` WHERE `email`=%s"
+        cursor.execute(sql, ('webmaster@python.org',))
+        result = cursor.fetchone()
+        print(result)
+finally:
+    connection.close()
+```
 
 ### WebDriver
 
