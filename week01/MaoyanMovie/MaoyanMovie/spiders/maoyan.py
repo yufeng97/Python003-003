@@ -1,5 +1,4 @@
 import scrapy
-import requests
 from MaoyanMovie.items import MaoyanMovieItem
 from scrapy.selector import Selector
 from urllib.parse import urljoin
