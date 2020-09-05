@@ -67,9 +67,8 @@ class Fork:
         self._lock = threading.Lock()
         self.is_free = True
 
-    def pickup(self):
-        self._lock.acquire()
-        self.is_free = False
+    def pickup(self):   
+        self.is_free = not self._lock.acquire(1)
 
     def putdown(self):
         self._lock.release()
