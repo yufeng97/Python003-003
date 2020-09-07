@@ -1,0 +1,9 @@
+USE geekbang;
+CREATE TABLE IF NOT EXISTS jobs(
+    `job_id` INT UNSIGNED AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL,
+    `category` VARCHAR(100) NOT NULL,
+    `salary` VARCHAR(100) NOT NULL,
+    `city` VARCHAR(100) NOT NULL,
+    PRIMARY KEY (`job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

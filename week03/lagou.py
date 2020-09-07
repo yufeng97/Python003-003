@@ -1,6 +1,7 @@
 import threading
 from selenium import webdriver
 import time
+import pymysql
 
 
 info_set = set()
@@ -33,7 +34,7 @@ def parse_city_jobs(city, num):
 
 
 def main():
-    cities = ['beijing', 'shanghai', 'guangzhou', 'shenzhen']
+    cities = ["shenzhen", "shanghai", "beijing", "guangzhou"]
     tasks = [threading.Thread(target=parse_city_jobs, args=(city, 10,)) for city in cities]
     for task in tasks:
         task.start()
@@ -44,6 +45,31 @@ def main():
             f.write("{}\n".format(info))
     print(info_set)
 
+    dbInfo = {
+        'host': 'localhost',
+        'port': 3306,
+        'user': 'root',
+        'password': '',
+        'db': 'geekbang'
+    }
+    connection = pymysql.connect(
+        host = dbInfo['host'],
+        port = dbInfo['port'],
+        user = dbInfo['user'],
+        password = dbInfo['password'],
+        db = dbInfo['db']
+    )
+    for info in info_set:
+        city, name, salary = info.split('_')
+        try:
+            with connection.cursor() as cursor:
+                sql = "INSERT INTO jobs (name, category, salary, city) VALUES (%s, %s, %s, %s);"
+                cursor.execute(sql, (name, 'python', salary, city))
+            connection.commit()
+        except:
+            connection.rollback()
+    connection.close()
+            
 
 if __name__ == "__main__":
     main()
