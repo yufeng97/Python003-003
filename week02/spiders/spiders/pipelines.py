@@ -23,20 +23,21 @@ class SpidersPipeline:
             db=dbInfo['db'],
             password=dbInfo['password']
         )
-        self.cursor = self.conn.cursor()
 
     def process_item(self, item, spider):
         title = item['title']
         categories = ', '.join(item['categories'])
         release_time = item['release_time']
-        sql = "INSERT INTO maoyan_movie (name, category, release_time) " \
-            "VALUES ('{}', '{}', '{}');".format(title, categories, release_time)
         try:
-            self.cursor.execute(sql)
+            cursor = self.conn.cursor()
+            sql = "INSERT INTO maoyan_movie (name, category, release_time) VALUES (%s, %s， %s);"
+            cursor.execute(sql, (title, categories, release_time))
             self.conn.commit()
         except Exception as e:
             self.conn.rollback()
             print(e)
+        finally:
+            cursor.close()
         return item
 
     def close_spider(self, spider):
