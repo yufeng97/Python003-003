@@ -26,15 +26,17 @@ def parse_detail(url):
     ratings = selector.xpath('//span[@class="comment-info"]/span[2]/@class')
     stars = [int(rating.split()[0][-2]) for rating in ratings]
     comments = selector.xpath('//span[@class="short"]/text()')
-    return stars, comments
+    comment_date = selector.xpath('//span[@class="comment-time "]/text()')
+    comment_date = [time.strip() for time in comment_date]
+    return stars, comments, comment_date
 
 
-def save(connection, stars, comments):
-    for star, comment in zip(stars, comments):
+def save(connection, stars, comments, comment_date):
+    for star, comment, date in zip(stars, comments, comment_date):
         try:
             with connection.cursor() as cursor:
-                sql = "INSERT INTO ratings (star, comment) VALUES (%s, %s);"
-                cursor.execute(sql, (star, comment))
+                sql = "INSERT INTO ratings (star, comment, comment_date) VALUES (%s, %s, %s);"
+                cursor.execute(sql, (star, comment, date))
             connection.commit()
         except:
             connection.rollback()
@@ -63,8 +65,8 @@ def main():
             all_tasks.append(executor.submit(parse_detail, url))
         for future in as_completed(all_tasks):
             try:
-                stars, comments = future.result()
-                save(connection, stars, comments)
+                stars, comments, comment_date = future.result()
+                save(connection, stars, comments, comment_date)
             except Exception as e:
                 print(e)
     
