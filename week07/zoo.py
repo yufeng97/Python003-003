@@ -23,23 +23,19 @@ class Animal(metaclass=ABCMeta):
 
 
 class Cat(Animal):
+    sound = "喵"
+
     def __init__(self, name, type_, physique, character):
         super().__init__(type_, physique, character)
         self.name = name
-
-    @property
-    def sound(self):
-        return "喵"
 
 
 class Dog(Animal):
+    sound = "汪"
+
     def __init__(self, name, type_, physique, character):
         super().__init__(type_, physique, character)
         self.name = name
-
-    @property
-    def sound(self):
-        return "汪"
 
 
 class Zoo(object):
