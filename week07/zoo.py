@@ -10,6 +10,10 @@ class Animal(metaclass=ABCMeta):
         self.physique = physique
         self.character = character
 
+    @classmethod
+    def cry(cls):
+        print(cls.voice)
+
     @property
     def is_fierce(self):
         return True if self.physique >= "中等" \
@@ -23,7 +27,7 @@ class Animal(metaclass=ABCMeta):
 
 
 class Cat(Animal):
-    sound = "喵"
+    voice = "喵"
 
     def __init__(self, name, type_, physique, character):
         super().__init__(type_, physique, character)
@@ -31,7 +35,7 @@ class Cat(Animal):
 
 
 class Dog(Animal):
-    sound = "汪"
+    voice = "汪"
 
     def __init__(self, name, type_, physique, character):
         super().__init__(type_, physique, character)
@@ -48,6 +52,7 @@ class Zoo(object):
             self._animal_set.add(animal)
             setattr(self, animal.__class__.__name__, None)
         else:
+            animal.cry()
             print(animal.name, "has been already add into zoo")
 
 
@@ -59,6 +64,7 @@ if __name__ == '__main__':
     assert cat1.is_fierce == False
     cat2 = Cat("mao2", '食肉', '中等', '凶猛')
     assert cat2.is_fierce == True
+
     # 增加一只猫到动物园
     z.add_animal(cat1)
     z.add_animal(cat2)
