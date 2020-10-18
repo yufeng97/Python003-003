@@ -33,7 +33,13 @@ def f3(m: int, n: int):
             pass
 
 
+@timer
+def f4(n):
+    return sum(range(n))
+
+
 if __name__ == "__main__":
     f1()
     print(f"the sum is {f2(1, 2, 3)}")
-    f3(1000, 1000)
+    f3(10000, 10000)
+    print(f"the sum of {0} to {1234567 - 1} is {f4(1234567)}")
