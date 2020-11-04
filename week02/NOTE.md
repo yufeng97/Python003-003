@@ -46,6 +46,8 @@ https://www.cnblogs.com/zyt6688/p/12601002.html
 net start mysql
 # 进入mysql交互
 mysql -u root -p
+# 停止服务
+net stop mysql
 ```
 
 #### 安装pymysql
