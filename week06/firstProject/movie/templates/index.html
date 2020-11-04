@@ -12,8 +12,9 @@
 <body>
 <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="/">首页</a>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" name="q" type="search" placeholder="搜索">
+    <form class="form-inline" action="" method="POST">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="search" type="search" placeholder="请输入要搜索的评论关键字">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
     </form>
 </nav>
@@ -31,7 +32,7 @@
         <tbody>
             {% for rating in ratings %}
                 <tr>
-                    <th>{{rating.id}}</th>
+                    <th scope="row">{{rating.id}}</th>
                     <td>{{rating.comment}}</td>
                     <td>{{rating.star}}</td>
                     <td class="text-nowrap">{{rating.comment_date}}</td>
