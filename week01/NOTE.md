@@ -90,7 +90,7 @@ for tags in bs_info.find_all('div', attrs={'class': 'hd'}):
 | ..                          | 选取当前节点的父节点          |
 | @                           | 选取属性                      |
 | text()                      | 选取节点中的文字              |
-| [1], [last()], [position<5] | 选取索引第1，最后，前4的节点  |
+| [1], [last()], [position()<5] | 选取索引第1，最后，前4的节点  |
 | [@attribute="name"]         | 选取属性为name的节点          |
 | [contains(@class, "book")]  | 选取class属性中包含book的节点 |
 
